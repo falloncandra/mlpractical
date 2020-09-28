@@ -58,3 +58,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#ipynb checkpoints
+notebooks/.ipynb_checkpoints/
