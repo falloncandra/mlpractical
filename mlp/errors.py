@@ -25,7 +25,11 @@ class SumOfSquaredDiffsError(object):
         Returns:
             Scalar error function value.
         """
-        raise NotImplementedError()
+        difference = outputs - targets
+        squared_difference = np.square(difference)
+        error_per_instance = np.sum(squared_difference, axis=1, keepdims=True) / 2
+        mean_total_error = np.mean(error_per_instance)
+        return mean_total_error
 
     def grad(self, outputs, targets):
         """Calculates gradient of error function with respect to outputs.
@@ -38,7 +42,7 @@ class SumOfSquaredDiffsError(object):
             Gradient of error function with respect to outputs. This should be
             an array of shape (batch_size, output_dim).
         """
-        raise NotImplementedError()
-
+        return (outputs - targets) / targets[0]
+        
     def __repr__(self):
         return 'SumOfSquaredDiffsError'
