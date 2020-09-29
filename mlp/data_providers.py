@@ -201,23 +201,36 @@ class MetOfficeDataProvider(DataProvider):
             'Data file does not exist at expected path: ' + data_path
         )
         # load raw data from text file
-        loaded = np.loadtxt('../data/HadSSP_daily_qc.txt', skiprows=3)
+        loaded = np.loadtxt(data_path, skiprows=3, usecols=range(2, 32))
+        
         # filter out all missing datapoints and flatten to a vector
         flattened = loaded.flatten()
-        filter_ = flattened != -99.99
+#         filter_ = flattened != -99.99
+        filter_ = flattened >=0
         filtered = flattened[filter_]
+        
         # normalise data to zero mean, unit standard deviation
         normalised = (filtered - np.mean(filtered)) / np.std(filtered)
+        
         # convert from flat sequence to windowed data
-        windowed = normalised.reshape((-1, self.window_size))
-        print(windowed)
+#         windowed = normalised.reshape((-1, self.window_size))
+        #solution: create a view on to array corresponding to a rolling window
+        shape = (normalised.shape[-1] - self.window_size + 1, self.window_size)
+        strides = normalised.strides + (normalised.strides[-1],)
+        windowed = np.lib.stride_tricks.as_strided(normalised, shape=shape, strides=strides)
+        print(f'window_size:{self.window_size}')
+        print(f'normalised.shape: {normalised.shape}')
+        print(f'shape: {shape}')
+        print(f'normalised.strides: {normalised.strides}')
+        print(f'strides: {strides}')        
+                
         # inputs are first (window_size - 1) entries in windows
-        inputs = windowed[:, :self.window_size-1]
+        inputs = windowed[:, :-1]
         # targets are last entry in windows
         targets = windowed[:, -1]
         
-        print(targets)
-        print(inputs)
+        print(f'target: {targets}')
+        print(f'inputs: {inputs}')
         # initialise base class with inputs and targets arrays
         super(MetOfficeDataProvider, self).__init__(
             inputs, targets, batch_size, max_num_batches, shuffle_order, rng)
