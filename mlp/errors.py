@@ -42,7 +42,7 @@ class SumOfSquaredDiffsError(object):
             Gradient of error function with respect to outputs. This should be
             an array of shape (batch_size, output_dim).
         """
-        return (outputs - targets) / targets[0]
+        return (outputs - targets) / targets.shape[0]
         
     def __repr__(self):
         return 'SumOfSquaredDiffsError'
