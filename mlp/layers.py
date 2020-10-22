@@ -667,9 +667,7 @@ class DropoutLayer(StochasticLayer):
                 full_dropout_mask = np.full(inputs.shape, dropout_mask)
             else:
                 full_dropout_mask = self.rng.uniform(size=inputs.shape[1:]) < self.incl_prob
-            outputs = np.multiply(inputs, full_dropout_mask)
-            outputs = outputs 
-                
+            outputs = np.multiply(inputs, full_dropout_mask)                
         else:
             outputs = inputs
         
