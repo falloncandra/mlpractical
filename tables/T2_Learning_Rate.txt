@@ -1,0 +1,20 @@
+\begin{table*}[t]
+% \vskip 3mm
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{ccccccc}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Learning \\ Rate\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Error \\ Gap\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Accuracy \\ Gap \\ (\%)\end{tabular}} \\ \hline
+0.0007                                                            & 0.367                                                              & 0.547                                                                & 0.180                                                                      & 87.80\%                                                                       & 85.10\%                                                                         & 2.70\%                                                                               \\
+0.001                                                             & 0.383                                                              & 0.564                                                                & 0.181                                                                     & 87.30\%                                                                       & 84.70\%                                                                         & 2.60\%                                                                               \\
+0.003                                                             & 0.560                                                               & 0.739                                                                & 0.179                                                                     & 84.10\%                                                                       & 81.80\%                                                                         & 2.30\%                                                                               \\ \hline
+\end{tabular}
+\end{sc}
+\end{small}
+\caption{Classification accuracies for naive Bayes and flexible 
+Bayes on various data sets.}
+\label{tab:task-1}
+\end{center}
+\vskip -3mm
+\end{table*}

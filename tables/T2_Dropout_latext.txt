@@ -1,0 +1,22 @@
+\begin{table*}[t]
+% \vskip 3mm
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{cccccccc}
+\hline
+\textbf{Dropout} & \textbf{\begin{tabular}[c]{@{}c@{}}Dropout \\ Rate \\ (p)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Error \\ Gap\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Accuracy \\ Gap \\ (\%)\end{tabular}} \\ \hline
+No               & -                                                                       & 0.129                                                              & 1.390                                                                 & 1.261                                                                     & 95.10\%                                                                       & 83.00\%                                                                         & 12.10\%                                                                              \\
+Yes              & 0.5                                                                     & 1.370                                                               & 2.080                                                                 & 0.710                                                                      & 84.30\%                                                                       & 81.00\%                                                                         & 3.30\%                                                                               \\
+Yes              & 0.6                                                                     & 0.752                                                              & 1.190                                                                 & 0.438                                                                     & 85.90\%                                                                       & 82.60\%                                                                         & 3.30\%                                                                               \\
+Yes              & 0.7                                                                     & 0.460                                                               & 0.759                                                                & 0.299                                                                     & 87.30\%                                                                       & 83.70\%                                                                         & 3.60\%                                                                               \\
+Yes              & 0.8                                                                     & 0.347                                                              & 0.599                                                                & 0.252                                                                     & 88.30\%                                                                       & 84.30\%                                                                         & 4.00\%                                                                               \\ \hline
+\end{tabular}
+\end{sc}
+\end{small}
+\caption{Classification accuracies for naive Bayes and flexible 
+Bayes on various data sets.}
+\label{tab:task-1}
+\end{center}
+\vskip -3mm
+\end{table*}

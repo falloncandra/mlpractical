@@ -1,0 +1,23 @@
+\begin{table*}[t]
+% \vskip 3mm
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{cccccccc}
+\hline
+\begin{tabular}[c]{@{}c@{}}Hidden Layers\end{tabular} & \begin{tabular}[c]{@{}c@{}}Hidden Units\end{tabular} & \begin{tabular}[c]{@{}c@{}}Training \\ Error\end{tabular} & \begin{tabular}[c]{@{}c@{}}Validation \\ Error\end{tabular} & \begin{tabular}[c]{@{}c@{}}Absolute \\ Error Gap\end{tabular} & \begin{tabular}[c]{@{}c@{}}Training \\ Accuracy (\%)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy (\%)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Absolute \\ Accuracy \\ Gap (\%)\end{tabular} \\ \hline
+\vskip 1mm
+1                                                                        & 32                                                                      & 0.477                                                     & 0.658                                                       & 0.181                                                            & 84.00\%                                                              & 79.80\%                                                                & 4.20\%                                                                      \\
+1                                                                        & 64                                                                      & 0.257                                                     & 0.768                                                       & 0.511                                                            & 90.20\%                                                              & 81.30\%                                                                & 8.90\%                                                                      \\
+1                                                                        & 128                                                                     & 0.099                                                    & 1.530                                                        & 1.431                                                           & 95.90\%                                                              & 81.60\%                                                                & 14.30\%                                                                     \\
+2                                                                        & 128                                                                     & 0.103                                                     & 1.670                                                        & 1.567                                                            & 96.00\%                                                              & 82.30\%                                                                & 13.70\%                                                                     \\
+3                                                                        & 128                                                                     & 0.129                                                     & 1.390                                                        & 1.261                                                            & 95.10\%                                                              & 83.00\%                                                                & 12.10\%                                                                     \\ \hline
+\end{tabular}
+\end{sc}
+\end{small}
+\caption{Classification accuracies for naive Bayes and flexible 
+Bayes on various data sets.}
+\label{tab:task-1}
+\end{center}
+\vskip -3mm
+\end{table*}

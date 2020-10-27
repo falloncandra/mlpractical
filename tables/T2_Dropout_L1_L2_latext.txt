@@ -1,0 +1,20 @@
+\begin{table*}[t]
+% \vskip 3mm
+\begin{center}
+\begin{small}
+\begin{sc}
+\begin{tabular}{ccccccc}
+\hline
+\textbf{Method} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Error\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Error \\ Gap\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Training \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy \\ (\%)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Absolute \\ Accuracy \\ Gap \\ (\%)\end{tabular}} \\ \hline
+Dropout         & 0.347                                                              & 0.599                                                                & 0.252                                                                     & 88.30\%                                                                       & 84.30\%                                                                         & 4.00\%                                                                               \\
+Dropout + L2    & 0.354                                                              & 0.569                                                                & 0.215                                                                     & 88.10\%                                                                       & 84.80\%                                                                         & 3.30\%                                                                               \\
+Dropout + L1    & 0.383                                                              & 0.564                                                                & 0.181                                                                     & 87.30\%                                                                       & 84.70\%                                                                         & 2.60\%                                                                               \\ \hline
+\end{tabular}
+\end{sc}
+\end{small}
+\caption{Classification accuracies for naive Bayes and flexible 
+Bayes on various data sets.}
+\label{tab:task-1}
+\end{center}
+\vskip -3mm
+\end{table*}
