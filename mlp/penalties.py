@@ -41,7 +41,8 @@ class L1Penalty(object):
             Value of penalty gradient with respect to parameter. This
             should be an array of the same shape as the parameter.
         """
-        return self.coefficient * np.where(parameter > 0, 1, -1)
+        return self.coefficient * np.sign(parameter)
+
 
     def __repr__(self):
         return 'L1Penalty({0})'.format(self.coefficient)
