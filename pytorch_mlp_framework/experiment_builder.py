@@ -156,10 +156,17 @@ class ExperimentBuilder(nn.Module):
         """
         ########################################
         for name, params in named_parameters:
-            mean_absolute_gradients = torch.abs(params.grad).mean().detach().cpu().numpy()
-            all_grads.append(mean_absolute_gradients)
-            layers.append(name)
-    
+            if "weight" in name:
+                clean_name = "_".join([
+                    element for element in name.split('.')
+                    if element not in ["layer_dict", "weight"]
+                ])
+                if "logit_linear" in name:
+                    clean_name = "weight_" + clean_name
+                layers.append(clean_name)
+
+                mean_absolute_gradients = torch.abs(params.grad).mean().detach().cpu().numpy()
+                all_grads.append(mean_absolute_gradients)
         ########################################
             
         
