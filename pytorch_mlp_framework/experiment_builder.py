@@ -250,7 +250,9 @@ class ExperimentBuilder(nn.Module):
         :return: The summary current_epoch_losses from starting epoch to total_epochs.
         """
         total_losses = {"train_acc": [], "train_loss": [], "val_acc": [],
-                        "val_loss": []}  # initialize a dict to keep the per-epoch metrics
+                        "val_loss": [],
+                        "epoch_elapsed_time": []
+                        }  # initialize a dict to keep the per-epoch metrics
         for i, epoch_idx in enumerate(range(self.starting_epoch, self.num_epochs)):
             epoch_start_time = time.time()
             current_epoch_losses = {"train_acc": [], "train_loss": [], "val_acc": [], "val_loss": []}
@@ -279,6 +281,11 @@ class ExperimentBuilder(nn.Module):
                 total_losses[key].append(np.mean(
                     value))  # get mean of all metrics of current epoch metrics dict, to get them ready for storage and output on the terminal.
 
+            # create a string to use to report our epoch metrics
+            epoch_elapsed_time = time.time() - epoch_start_time  # calculate time taken for epoch
+            total_losses["epoch_elapsed_time"].append(epoch_elapsed_time)
+            epoch_elapsed_time = "{:.4f}".format(epoch_elapsed_time)
+
             save_statistics(experiment_log_dir=self.experiment_logs, filename='summary.csv',
                             stats_dict=total_losses, current_epoch=i,
                             continue_from_mode=True if (self.starting_epoch != 0 or i > 0) else False)  # save statistics to stats file.
@@ -287,10 +294,12 @@ class ExperimentBuilder(nn.Module):
 
             out_string = "_".join(
                 ["{}_{:.4f}".format(key, np.mean(value)) for key, value in current_epoch_losses.items()])
-            # create a string to use to report our epoch metrics
-            epoch_elapsed_time = time.time() - epoch_start_time  # calculate time taken for epoch
-            epoch_elapsed_time = "{:.4f}".format(epoch_elapsed_time)
             print("Epoch {}:".format(epoch_idx), out_string, "epoch time", epoch_elapsed_time, "seconds")
+            # # create a string to use to report our epoch metrics
+            # epoch_elapsed_time = time.time() - epoch_start_time  # calculate time taken for epoch
+            # epoch_elapsed_time = "{:.4f}".format(epoch_elapsed_time)
+            # print("Epoch {}:".format(epoch_idx), out_string, "epoch time", epoch_elapsed_time, "seconds")
+
             self.state['model_epoch'] = epoch_idx
             self.save_model(model_save_dir=self.experiment_saved_models,
                             # save model and best val idx and best val acc, using the model dir, model name and model idx
