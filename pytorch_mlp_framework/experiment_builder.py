@@ -165,8 +165,11 @@ class ExperimentBuilder(nn.Module):
                     clean_name = "weight_" + clean_name
                 layers.append(clean_name)
 
-                mean_absolute_gradients = torch.abs(params.grad).mean().detach().cpu().numpy()
-                all_grads.append(mean_absolute_gradients)
+                # mean_absolute_gradients = torch.abs(params.grad).mean().detach().cpu().numpy()
+                # all_grads.append(mean_absolute_gradients)
+
+                absolute_mean_gradients = torch.abs(params.grad.mean()).detach().cpu().numpy()
+                all_grads.append(absolute_mean_gradients)
         ########################################
             
         
