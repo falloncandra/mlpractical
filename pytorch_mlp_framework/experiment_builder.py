@@ -147,15 +147,19 @@ class ExperimentBuilder(nn.Module):
         Receives the parameters of the model being trained. Returns plot of gradient flow for the given model parameters.
        
         """
-        all_grads = []
-        layers = []
+        all_grads = [] #accumulate the absolute mean of the gradients here
+        layers = [] #accumulate the layer name here
         
         """
-        Complete the code in the block below to collect absolute mean of the gradients for each layer in all_grads with the             layer names in layers.
+        Complete the code in the block below to collect absolute mean of the gradients for each layer in all_grads with 
+        the             layer names in layers.
         """
         ########################################
-        
-        
+        for name, params in named_parameters:
+            mean_absolute_gradients = torch.abs(params.grad).mean().detach().cpu().numpy()
+            all_grads.append(mean_absolute_gradients)
+            layers.append(name)
+    
         ########################################
             
         
