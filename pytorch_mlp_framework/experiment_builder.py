@@ -77,7 +77,7 @@ class ExperimentBuilder(nn.Module):
         self.learning_rate_scheduler = optim.lr_scheduler.CosineAnnealingLR(self.optimizer,
                                                                             T_max=num_epochs,
                                                                             # eta_min=0.00002)
-                                                                            eta_min=0.02)
+                                                                            eta_min=0.0002)
         # Generate the directory names
         self.experiment_folder = os.path.abspath(experiment_name)
         self.experiment_logs = os.path.abspath(os.path.join(self.experiment_folder, "result_outputs"))
