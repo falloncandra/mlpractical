@@ -315,7 +315,8 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
 
         out = self.layer_dict['conv_0'].forward(out)
         self.layer_dict['bn_0'] = nn.BatchNorm2d(num_features=out.shape[1])
-        out = F.leaky_relu(out)
+        # out = F.leaky_relu(out)
+        out = F.tanh(out)
 
         out = F.avg_pool2d(out, self.reduction_factor)
 
@@ -324,7 +325,8 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
                                               padding=self.padding, stride=1)
         out = self.layer_dict['conv_1'].forward(out)
         self.layer_dict['bn_1'] = nn.BatchNorm2d(num_features=out.shape[1])
-        out = F.leaky_relu(out)
+        # out = F.leaky_relu(out)
+        out = F.tanh(out)
 
         print(out.shape)
 
@@ -334,14 +336,16 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
         out = self.layer_dict['conv_0'].forward(out)
         #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
         out = self.layer_dict['bn_0'].forward(out)
-        out = F.leaky_relu(out)
+        # out = F.leaky_relu(out)
+        out = F.tanh(out)
 
         out = F.avg_pool2d(out, self.reduction_factor)
 
         out = self.layer_dict['conv_1'].forward(out)
         #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
         out = self.layer_dict['bn_1'].forward(out)
-        out = F.leaky_relu(out)
+        # out = F.leaky_relu(out)
+        out = F.tanh(out)
 
         return out
 
