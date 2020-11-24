@@ -314,6 +314,7 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
                                               padding=self.padding, stride=1)
 
         out = self.layer_dict['conv_0'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
         self.layer_dict['bn_0'] = nn.BatchNorm2d(num_features=out.shape[1])
         out = F.leaky_relu(out)
 
@@ -323,6 +324,7 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
                                               kernel_size=self.kernel_size, dilation=self.dilation,
                                               padding=self.padding, stride=1)
         out = self.layer_dict['conv_1'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
         self.layer_dict['bn_1'] = nn.BatchNorm2d(num_features=out.shape[1])
         out = F.leaky_relu(out)
 
@@ -342,6 +344,125 @@ class ConvolutionalDimensionalityReductionBlockWithBatchNorm(nn.Module):
         #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
         out = self.layer_dict['bn_1'].forward(out)
         out = F.leaky_relu(out)
+
+        return out
+
+# Applying Batch Normalization to CNN block and use TanH nonlinearity
+class ConvolutionalProcessingBlockWithBatchNormTanH(nn.Module):
+    def __init__(self, input_shape, num_filters, kernel_size, padding, bias, dilation):
+        super(ConvolutionalProcessingBlockWithBatchNormTanH, self).__init__()
+
+        self.num_filters = num_filters
+        self.kernel_size = kernel_size
+        self.input_shape = input_shape
+        self.padding = padding
+        self.bias = False # we can ignore bias because it is redundant with Batch Norm's parameter for shifting (beta)
+        self.dilation = dilation
+
+        self.build_module()
+
+    def build_module(self):
+        self.layer_dict = nn.ModuleDict()
+        x = torch.zeros(self.input_shape)
+        out = x
+
+        self.layer_dict['conv_0'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
+                                              kernel_size=self.kernel_size, dilation=self.dilation,
+                                              padding=self.padding, stride=1)
+
+        out = self.layer_dict['conv_0'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        self.layer_dict['bn_0'] = nn.BatchNorm2d(num_features=out.shape[1])
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        self.layer_dict['conv_1'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
+                                              kernel_size=self.kernel_size, dilation=self.dilation,
+                                              padding=self.padding, stride=1)
+
+        out = self.layer_dict['conv_1'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        self.layer_dict['bn_1'] = nn.BatchNorm2d(num_features=out.shape[1])
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        print(out.shape)
+
+    def forward(self, x):
+        out = x
+
+        out = self.layer_dict['conv_0'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        out = self.layer_dict['bn_0'].forward(out)
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        out = self.layer_dict['conv_1'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        out = self.layer_dict['bn_1'].forward(out)
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        return out
+
+# Applying Batch Normalization to CNN block
+class ConvolutionalDimensionalityReductionBlockWithBatchNormTanH(nn.Module):
+    def __init__(self, input_shape, num_filters, kernel_size, padding, bias, dilation, reduction_factor):
+        super(ConvolutionalDimensionalityReductionBlockWithBatchNormTanH, self).__init__()
+
+        self.num_filters = num_filters
+        self.kernel_size = kernel_size
+        self.input_shape = input_shape
+        self.padding = padding
+        self.bias = False # we can ignore bias because it is redundant with Batch Norm's parameter for shifting(beta)
+        self.dilation = dilation
+        self.reduction_factor = reduction_factor
+        self.build_module()
+
+    def build_module(self):
+        self.layer_dict = nn.ModuleDict()
+        x = torch.zeros(self.input_shape)
+        out = x
+
+        self.layer_dict['conv_0'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
+                                              kernel_size=self.kernel_size, dilation=self.dilation,
+                                              padding=self.padding, stride=1)
+
+        out = self.layer_dict['conv_0'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        self.layer_dict['bn_0'] = nn.BatchNorm2d(num_features=out.shape[1])
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        out = F.avg_pool2d(out, self.reduction_factor)
+
+        self.layer_dict['conv_1'] = nn.Conv2d(in_channels=out.shape[1], out_channels=self.num_filters, bias=self.bias,
+                                              kernel_size=self.kernel_size, dilation=self.dilation,
+                                              padding=self.padding, stride=1)
+        out = self.layer_dict['conv_1'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        self.layer_dict['bn_1'] = nn.BatchNorm2d(num_features=out.shape[1])
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        print(out.shape)
+
+    def forward(self, x):
+        out = x
+
+        out = self.layer_dict['conv_0'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        out = self.layer_dict['bn_0'].forward(out)
+        #use tanh nonlinearity
+        out = F.tanh(out)
+
+        out = F.avg_pool2d(out, self.reduction_factor)
+
+        out = self.layer_dict['conv_1'].forward(out)
+        #apply Batch Normalization transformation to each activation, immediately before the non-linear transformation
+        out = self.layer_dict['bn_1'].forward(out)
+        #use tanh nonlinearity
+        out = F.tanh(out)
 
         return out
 
