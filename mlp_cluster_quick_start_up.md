@@ -26,7 +26,7 @@ example expresses one of the simplest reasons behind the GPU hype that surrounds
 2. Then ssh into either mlp1 or mlp2 which are the headnodes of the GPU cluster - it does not matter which you use. To do that
  run ```ssh mlp1``` or ```ssh mlp2```.
 3. You are now logged into the MLP gpu cluster. If this is your first time logging in you'll need to build your environment.  This is because your home directory on the GPU cluster is separate to your usual AFS home directory on DICE.
-- Note: Alternatively you can just ```ssh @sxxxxxxx@mlp.ed.ac.uk``` to get there in one step.
+- Note: Alternatively you can just ```ssh sxxxxxxx@mlp.inf.ed.ac.uk``` to get there in one step.
 
 ### Installing requirements:
 1. Start by downloading the miniconda3 installation file using 
@@ -53,9 +53,9 @@ This reloads .bashrc which includes the new miniconda path.
 7. Now run ```source activate mlp```.
 8. Install git using```conda install git```. Then config git using: 
 ```git config --global user.name "[your name]"; git config --global user.email "[matric-number]@sms.ed.ac.uk"```
-9. Now clone the mlpractical repo using ```git clone https://github.com/CSTR-Edinburgh/mlpractical.git```.
+9. Now clone the mlpractical repo using ```git clone https://github.com/VICO-UoE/mlpractical.git```.
 10. ```cd mlpractical```
-11. Checkout the mlp_cluster_tutorial branch using ```git checkout mlp2018-9/mlp_cluster_tutorial```.
+11. Checkout the mlp_cluster_tutorial branch using ```git checkout mlp2020-21/mlp_cluster_tutorial```.
 12. Install the required packages using ```bash install.sh```.
 13. This includes all of the required installations. Proceed to the next section outlining how to use the slurm cluster
  management software. Please remember to clean your setup files using ```conda clean -t```
